@@ -1,0 +1,19 @@
+# elastic search vars
+elastic_interface: localhost
+elastic_port: 9200
+cluster_name: openstack_elk
+node_name: elk-server
+
+# kibana vars
+kibana_interface: localhost
+kibana_port: 5601
+kibana_username: kibanaadmin
+kibana_password: secrete
+
+nginx_port: 80
+server_name: server_name
+#elastic_search_private_ip: 192.168.200.7
+elk_server_private_ip: 192.168.200.7
+
+logstash_ssl_self_signed_subject: "/C=US/ST=Texas/L=San Antonio/O=IT/CN={{ server_name }}/subjectAltName=IP.1={{ elk_server_private_ip }}"
+logstash_beat_input_port: 5044
