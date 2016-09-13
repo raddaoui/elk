@@ -1,19 +1,16 @@
 ---
 - name: install ElK stack
-  hosts: elk_server
+  hosts: elk
   become: true
   vars_files:
     - vars/variables.yml
   tasks:
     - name: Add Oracle Java PPA to apt sources list
       apt_repository: repo='ppa:webupd8team/java' state=present
-#    - name: Update apt cache
-#      apt: update_cache=yes
     - name: Accept Java 8 License
       debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
     - name: Ensure Java is installed.
       apt: name=oracle-java8-installer state=present install_recommends=yes update_cache=yes
-   
     - name: add Elastic search public GPG key
       apt_key:
         url: "https://packages.elastic.co/GPG-KEY-elasticsearch"

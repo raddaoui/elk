@@ -1,6 +1,6 @@
 ---
 - name: install kibana
-  hosts: elk_server
+  hosts: elk
   become: true
   vars_files:
     - vars/variables.yml

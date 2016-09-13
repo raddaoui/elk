@@ -1,6 +1,6 @@
 ---
 - name: install kibana
-  hosts: elk_server
+  hosts: elk
   become: true
   vars_files:
     - vars/variables.yml
@@ -23,6 +23,14 @@
         name: "kibana"
         enabled: true
         state: restarted
+
+- name: install kibana
+  hosts: haproxy_all
+  become: true
+  tags: nginx-setup
+  vars_files:
+    - vars/variables.yml
+  tasks:
     - name: Ensure Nginx is installed.
       apt: name={{ item }} state=present update_cache=yes
       with_items:
@@ -31,7 +39,6 @@
         - python-passlib
     - name: create kibana user to access web interface
       htpasswd: path=/etc/nginx/htpasswd.users name={{ kibana_username }} password={{ kibana_password }} owner=root mode=0644
-      tags: hhh
     - name: Drop Nginx default conf file
       template:
         src: templates/nginx_default.j2
